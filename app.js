@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname,'public')))
 
 const indexRouter = require('./routes/index')
 const userRouter = require('./routes/user')
-// const employeeRouter = require('./routes/employee')
+const employeeRouter = require('./routes/employee')
 
 
 
@@ -39,6 +39,7 @@ const userRouter = require('./routes/user')
 
 app.use("/",indexRouter)
 app.use('/user',userRouter)
+app.use('/employee',employeeRouter)
 
 
 

@@ -38,6 +38,11 @@ const employeeSchema = new mongoose.Schema({
         type:Number,
         min : 10
     },
+    serviceCategory:[{
+        services : {
+            type: String,
+        }
+    }] ,
     tokens:[
 
     ]
