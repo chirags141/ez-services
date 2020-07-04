@@ -1,0 +1,173 @@
+<!-- Register modal -->
+    <!-- Register-Modal -->
+    <div class="modal fade" id="register-modal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registerModalLabel">Register</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <!---------Radio buttons----------->
+                
+                <div class="row" id="select-user-register">
+                    <div class="offset-sm-1 col-sm-2">
+                        <label for="select-user">Register as</label>
+                    </div>
+                    <div class='col-sm-3'>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="register" id="user-register" value="user-register">
+                            <label class="form-check-label" for="inlineRadio1">User</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="register" id="employee-register" value="employee-register">
+                            <label class="form-check-label" for="inlineRadio2">Employee</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!------------Form Body --------------->
+                
+                <!--Register for User  -->
+
+                <form id="userRegister" method="POST" action="/user/register">
+
+                    <div class="form-group row">
+                        <label for="name" class="offset-sm-1 col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="userRegisterName" name="name" placeholder="Enter your name">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="email" class="offset-sm-1 col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-6">
+                            <input type="email" class="form-control" id="userRegisterEmail" name="email" placeholder="Enter your email address">
+                        </div>
+                    </div>
+
+                    
+                    <div class="form-group row">
+                        <label for="phone" class="offset-sm-1 col-sm-2 col-form-label">Phone No.</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="userRegisterPhone" name="phone" placeholder="Enter your phone number">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="password" class="offset-sm-1 col-sm-2 col-form-label">Password</label>
+                        <div class="col-sm-6">
+                            <input type="password" class="form-control" id="userRegisterPassword" name="password" placeholder="Enter your password">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label for="password2" class="offset-sm-1 col-sm-2 col-form-label">Re-Enter Password</label>
+                        <div class="col-sm-6">
+                            <input type="password" class="form-control" id="userRegisterPassword2" name="password2" placeholder="Re-enter your password">
+                        </div>
+                    </div>
+
+                
+                    <div class="form-group row">
+                        <div class="col-sm-4 offset-sm-3">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                   
+                
+                </form>
+            
+                <!-- register for Employee -->
+            
+                <form id="employeeRegister" method="POST"  action="/employee/register">
+
+                    <div class="form-group row">
+                        <label for="name" class="offset-sm-1 col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="employeeRegisterName" name="name" placeholder="Enter your name">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="email" class="offset-sm-1 col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-6">
+                            <input type="email" class="form-control" id="employeeRegisterEmail" name="email" placeholder="Enter your email address">
+                        </div>
+                    </div>
+
+                    
+                    <div class="form-group row">
+                        <label for="phone" class="offset-sm-1 col-sm-2 col-form-label">Phone No.</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="employeeRegisterPhone" name="phone" placeholder="Enter your phone number">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="verification" class="offset-sm-1 col-sm-2 col-form-label">Verification ID</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="employeeRegisterVerification" name="verification" placeholder="Enter your Verification ID number">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="serviceCategory" class="offset-sm-1 col-sm-2 col-form-label">Service Category</label>
+                        <div class="col-sm-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="electrician" id="electrician">
+                                <label class="form-check-label" for="electrician">
+                                  Electrician
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="plumber" id="plumber">
+                                <label class="form-check-label" for="plumber">
+                                  Plumber
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="carpenter" id="carpenter">
+                                <label class="form-check-label" for="carpenter">
+                                  Carpenter
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="form-group row">
+                        <label for="password" class="offset-sm-1 col-sm-2 col-form-label">Password</label>
+                        <div class="col-sm-6">
+                            <input type="password" class="form-control" id="employeeRegisterPassword" name="password" placeholder="Enter your password">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label for="password2" class="offset-sm-1 col-sm-2 col-form-label">Re-Enter Password</label>
+                        <div class="col-sm-6">
+                            <input type="password" class="form-control" id="employeeRegisterPassword2" name="password2" placeholder="Re-enter your password">
+                        </div>
+                    </div>
+
+                
+                    <div class="form-group row">
+                        <div class="col-sm-4 offset-sm-3">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                    
+                </form>
+            
+            </div>
+        
+        </div>
+        </div>
+    </div>
+    

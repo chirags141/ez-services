@@ -1,0 +1,98 @@
+
+.container{
+    background-color: rgba(228, 233, 237,1);
+}
+
+.container-color{
+    background-color: #17a2b8; 
+}
+
+.row-content {
+  margin: 0px auto;
+  padding: 50px 0px;
+  border-bottom: 1px ridge;
+  min-height: 400px; 
+}
+
+.carousel-item {
+    height: 50vh;
+}
+
+
+/* -----------------------------------------Navbar-------------------------------------------------- */
+.navbar {
+
+    background-color: #17a2b8; 
+    padding: 1rem 0.5rem;
+    text-transform: uppercase;
+    
+}
+
+.navbar-dark .navbar-nav .nav-link{
+    color: rgba(255,255,255,1);
+}
+
+.nav-item{
+    margin-right: 5px;
+    padding: 0px 10px;
+
+}
+.navbar-nav .btn-warning{
+    border-radius: 10px;
+}
+
+
+/*-------------------------------------------------- Services section ---------------------------------*/
+
+#services{
+    padding: 50px 0 ;
+}
+
+
+
+.heading{
+    padding: 9px  50px;
+    border-radius: 25px;
+    color:#ffffff
+}
+
+/*cards */
+
+.card{
+    margin: 15px 0px;   
+  }
+
+  .card-img{
+      height: 250px;
+      width: 290px;
+  }
+/* --------------------------------------Login Form-------------------------------------- */
+
+#userLogin,#employeeLogin{
+    display: none;
+    padding: 20px 0px;
+  }
+
+  #userRegister,#employeeRegister{
+    display: none;
+    padding: 20px 0px;
+  }
+
+/* FOOTER */
+.footer {
+    background-color: #17a2b8;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+  }
+  
+
+/* -----------------Book Now Page */
+
+.container-book{
+   margin-top:2.5rem;
+   min-height: 20vh
+}
+.e-services, .p-services, .c-services{
+    display: none;
+}
