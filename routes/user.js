@@ -6,10 +6,14 @@ const User = require('../models/User')
 // user Login Route
 //      /user/login
 
-router.post("/login",(req,res)=>{
- 
-    console.log(req.body);
-    res.send("Loginng in")
+router.post("/login",async (req,res)=>{
+    try {
+        const user = await User.findByCredentials(req.body.email, req.body.password)
+        console.log(user);
+        res.send("Logged in as user")    
+    } catch (err) {
+        res.status(400).send(err)
+    }
 })
 
 // user register Route
