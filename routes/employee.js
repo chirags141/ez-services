@@ -8,7 +8,8 @@ const Employee = require('../models/Employee')
 router.post("/login",async(req,res)=>{
     try{
         const employee = await Employee.findByCredentials(req.body.email, req.body.password)
-        console.log(employee);
+        const token = await employee.generateAuthToken()
+
         res.send("Logged in as Employee")
     } catch(err) {
         res.send(err)
@@ -19,10 +20,12 @@ router.post("/login",async(req,res)=>{
 //      /employee/register
 
 router.post("/register",async (req,res)=>{
-    
+
     const employee = new Employee(req.body)
     try {
         await employee.save()
+        const token = await employee.generateAuthToken()
+        console.log(employee);
         res.send("Registering Employee")
     } catch (err) {
         res.send(err)

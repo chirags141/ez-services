@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require("validator")
 const bcrypt = require('bcryptjs')
-
+const jwt = require('jsonwebtoken')
 
 // const serviceSchema = new mongoose.Schema({name:String})
 
@@ -51,14 +51,28 @@ const employeeSchema = new mongoose.Schema({
     serviceCategory : {
         type:Array
     },
-    tokens:[
-
-    ],
+    tokens:[{
+        token:{
+            type:String,
+            required: true
+        }
+    }],
     createdAt:{
         type:Date,
         default:Date.now()
     }
 })
+
+employeeSchema.methods.generateAuthToken = async function(){
+    const employee = this
+    const token = jwt.sign({_id : employee._id.toString()},process.env.AUTH_SIGNATURE)
+
+    employee.tokens = employee.tokens.concat({token})
+    await employee.save()
+
+    return token 
+}
+
 
 employeeSchema.statics.findByCredentials = async (email , password )=>{
     const employee = await Employee.findOne({$or : [ {email : email },{username : email} ]})

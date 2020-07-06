@@ -5,7 +5,7 @@ const path = require('path')
 const dotenv = require('dotenv')
 const mongoose = require("mongoose")
 const connectDB = require('./config/db')
-
+const jwt = require("jsonwebtoken")
 //Load config
 dotenv.config({path:"./config/config.env"})
 
@@ -27,13 +27,9 @@ app.set('view engine', 'ejs');
 //Static Folder
 app.use(express.static(path.join(__dirname,'public')))
 
-
-
 const indexRouter = require('./routes/index')
 const userRouter = require('./routes/user')
 const employeeRouter = require('./routes/employee')
-
-
 
 //Routes
 

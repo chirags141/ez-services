@@ -9,7 +9,7 @@ const User = require('../models/User')
 router.post("/login",async (req,res)=>{
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password)
-        console.log(user);
+        const token = await user.generateAuthToken()
         res.send("Logged in as user")    
     } catch (err) {
         res.status(400).send(err)
@@ -23,6 +23,7 @@ router.post("/register",async(req,res)=>{
     const user = new User(req.body)
     try {
         await user.save()
+        const token = await user.generateAuthToken()
         res.send("Registering User")
     } catch (err) {
         res.status(400).send(err)
