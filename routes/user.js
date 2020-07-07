@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const userAuth = require("../middleware/userAuth")
 const User = require('../models/User')
 
 
@@ -10,7 +11,14 @@ router.post("/login",async (req,res)=>{
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password)
         const token = await user.generateAuthToken()
-        res.send("Logged in as user")    
+        
+        res.cookie('token', token, {
+            secure: false,
+            httpOnly: true,
+          });
+
+        // res.header('Authorization', 'Bearer ' + token)
+        res.send("Logged in as User")    
     } catch (err) {
         res.status(400).send(err)
     }
@@ -24,11 +32,19 @@ router.post("/register",async(req,res)=>{
     try {
         await user.save()
         const token = await user.generateAuthToken()
-        res.send("Registering User")
+
+        // res.header('Authorization', 'Bearer ' + token)
+        // res.cookie('jwt',token,{ httpOnly: true, secure:false, maxAge: 3600000 })
+        res.send("Registered as user") 
     } catch (err) {
         res.status(400).send(err)
     }
     
+})
+
+router.get("/me",userAuth, async(req,res)=>{
+   const user = req.user
+    res.send(user)
 })
 
 module.exports = router

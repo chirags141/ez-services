@@ -6,6 +6,10 @@ const dotenv = require('dotenv')
 const mongoose = require("mongoose")
 const connectDB = require('./config/db')
 const jwt = require("jsonwebtoken")
+var cookieParser = require('cookie-parser')
+const cors = require('cors');
+
+
 //Load config
 dotenv.config({path:"./config/config.env"})
 
@@ -17,6 +21,9 @@ const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
+//cookie-parser
+app.use(cookieParser())
+app.use(cors());
 
 // Views
 app.set('views', path.join(__dirname, 'views'));
