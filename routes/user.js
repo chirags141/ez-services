@@ -5,7 +5,7 @@ const User = require('../models/User')
 
 
 // user Login Route
-//      /user/login
+// POST     /user/login
 
 router.post("/login",async (req,res)=>{
     try {
@@ -17,14 +17,14 @@ router.post("/login",async (req,res)=>{
             httpOnly: true,
           });
 
-        res.send("Logged in as User")    
+          res.render("user/userDashboard",{user})
     } catch (err) {
         res.status(400).send(err)
     }
 })
 
 // user register Route
-//      /user/register
+// POST /user/register
 
 router.post("/register",async(req,res)=>{
     const user = new User(req.body)
@@ -44,9 +44,46 @@ router.post("/register",async(req,res)=>{
     
 })
 
+// user profile Route
+//  GET    /user/me
+
 router.get("/me",userAuth, async(req,res)=>{
    const user = req.user
     res.send(user)
+})
+
+//temporary router
+router.get("/me1",userAuth, async(req,res)=>{
+    const user = req.user
+    res.render("user/userDashboard",{user:req.user})
+ })
+
+
+
+// user Logout Route
+//  POST    /user/logout
+router.post('/logout',userAuth,async(req,res)=>{
+    try {
+        req.user.tokens = req.user.tokens.filter((token)=>{
+            return token.token !== req.token
+        })
+        await req.user.save()
+        res.redirect("/")
+    } catch (err) {
+        res.status(500).send()
+    }
+})
+
+// user Logout All Route
+//  POST    /user/logoutAll
+router.post('/logoutAll',userAuth, async(req,res)=>{
+    try {
+        req.user.tokens = []
+        await req.user.save()
+        res.redirect("/")
+    } catch (err) {
+        res.status(500).send()
+    }
 })
 
 module.exports = router

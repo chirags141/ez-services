@@ -42,10 +42,40 @@ router.post("/register",async (req,res)=>{
     }
 })
 
+// employee profile Route
+//          /employee/me
+
 router.get("/me",employeeAuth, async(req,res)=>{
     const employee = req.employee
      res.send(employee)
  })
+
+ // employee Logout Route
+//  POST    /employee/logout
+router.post('/logout',employeeAuth,async(req,res)=>{
+    try {
+        req.employee.tokens = req.employee.tokens.filter((token)=>{
+            return token.token !== req.token
+        })
+        await req.employee.save()
+        res.redirect("/")
+    } catch (err) {
+        res.status(500).send()
+    }
+})
+
+// employee Logout All Route
+//  POST    /employee/logoutAll
+router.post('/logoutAll',employeeAuth, async(req,res)=>{
+    try {
+        req.employee.tokens = []
+        await req.employee.save()
+        res.redirect("/")
+    } catch (err) {
+        res.status(500).send()
+    }
+})
+
 
 module.exports = router
 

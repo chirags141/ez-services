@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+    <title>EZ-Services</title>
+</head>
+<body>
+    <%- include('../partials/nav'); %>
+    <div class="container">
+        <form action="/user/logout" method="POST">
+            <button class="btn btn-lg btn-danger" type="submit">logout</button>
+        </form>
+    </div>
+    <%- include('../partials/footer'); %>
+    <%- include('../partials/script'); %>    
+</body>
+</html>
