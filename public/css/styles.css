@@ -96,3 +96,8 @@
 .e-services, .p-services, .c-services{
     display: none;
 }
+
+.pt-4{
+    padding-top: 1rem!important;
+    text-align: left;
+}

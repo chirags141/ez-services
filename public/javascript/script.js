@@ -40,6 +40,28 @@ $(document).ready(function () {
       $(".p-services").hide();
       $(".e-services").hide();
     })
+
+    $('#electrician').change(function() {
+      if ($(this).is(':checked')){
+          $('input[name="plumber"]').prop('checked', false); //unchecks all checkboxes of plumber
+          $('input[name="carpenter"]').prop('checked', false); //unchecks all checkboxes of carpenter
+      }
+  });
+
+  $('#plumber').change(function() {
+    if ($(this).is(':checked')){
+        $('input[name="electrician"]').prop('checked', false); //unchecks all checkboxes of electrician
+        $('input[name="carpenter"]').prop('checked', false); //unchecks all checkboxes of carpenter
+    }
+  });
+
+  $('#carpenter').change(function() {
+    if ($(this).is(':checked')){
+        $('input[name="electrician"]').prop('checked', false); //unchecks all checkboxes of electrician
+        $('input[name="plumber"]').prop('checked', false); //unchecks all checkboxes of plumber
+    }
+  });
+
   });
   
   

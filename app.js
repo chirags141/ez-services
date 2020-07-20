@@ -9,7 +9,6 @@ const jwt = require("jsonwebtoken")
 var cookieParser = require('cookie-parser')
 const cors = require('cors');
 
-
 //Load config
 dotenv.config({path:"./config/config.env"})
 
@@ -37,13 +36,14 @@ app.use(express.static(path.join(__dirname,'public')))
 const indexRouter = require('./routes/index')
 const userRouter = require('./routes/user')
 const employeeRouter = require('./routes/employee')
+const bookServiceRouter = require('./routes/bookService')
 
 //Routes
 
 app.use("/",indexRouter)
 app.use('/user',userRouter)
 app.use('/employee',employeeRouter)
-
+app.use('/bookService',bookServiceRouter)
 
 
 
