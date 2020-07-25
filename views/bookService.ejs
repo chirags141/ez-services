@@ -14,56 +14,105 @@
         
         <!-- Checking any of the three -->
         
-        <form id="" class="py-4">
+        <!-- Form for booking a service -->
+        
+        <form id="bookService" class="py-4" method="POST" action="/bookService">
+
+            <div class="form-group row">
+                <label for="bookingName" class="offset-md-1 col-md-2 col-sm-3 col-form-label">Name</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" id="" name="name" placeholder="Enter your name">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="email" class="offset-md-1 col-md-2 col-sm-3 col-form-label">Email</label>
+                <div class="col-sm-5">
+                    <input type="email" class="form-control" id="" name="email" placeholder="Enter your email address">
+                </div>
+            </div>
+
+            
+            <div class="form-group row">
+                <label for="mobile" class="offset-md-1 col-md-2 col-sm-3 col-form-label">Mobile No.</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" id="" name="mobile" placeholder="Enter your mobile number">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="address" class="offset-md-1 col-md-2 col-sm-3 col-form-label">Address</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" id="" name="address" placeholder="Enter address ">
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for="city" class="offset-md-1 col-md-2 col-sm-3 col-form-label">City</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" id="" name="city" placeholder="Enter city">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="state" class="offset-md-1 col-md-2 col-sm-3 col-form-label">State</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" id="" name="state" placeholder="Enter State">
+                </div>
+            </div>
+  
             <div class="row pb">
-                <div class="col-sm-4">
+                <label for="bookService" class="col-sm-3 col-md-2 offset-md-1">Choose a service</label>
+                <div class="col-sm-3">
                     <div class="form-check form-check-inline d-flex justify-content-center">
-                        <input class="form-check-input" type="radio" name="book-service" id="electrician" value="electrician">
+                        <input class="form-check-input" type="radio" name="bookService" id="electrician" value="electrician">
                         <label class="form-check-label" for="electrician">Electrician</label>
                     </div>
-
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="form-check form-check-inline d-flex justify-content-center">
-                        <input class="form-check-input" type="radio" name="book-service" id="plumber" value="plumber">
+                        <input class="form-check-input" type="radio" name="bookService" id="plumber" value="plumber">
                         <label class="form-check-label" for="plumber">Plumber</label>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="form-check form-check-inline d-flex justify-content-center">
-                        <input class="form-check-input" type="radio" name="book-service" id="carpenter" value="carpenter">
+                        <input class="form-check-input" type="radio" name="bookService" id="carpenter" value="carpenter">
                         <label class="form-check-label" for="carpenter">Carpenter</label>
                     </div>
                 </div>
             </div>
 
             <!-- Option 1 -->
-            <div class="row pt-4">
-                <div class="col-sm-4  d-flex justify-content-center ">
-                    <div class="e-services">
-                        <div class="btn btn-light ">
+            <div class=" row pt-4">
+                <div class="offset-sm-3"></div>
+
+                <div class="col-sm-3   d-flex justify-content-center ">
+                    <div class="e-services w-100">
+                        <div class="btn btn-light w-100 ">
                             <div class="form-check">
-                            <input class="form-check-input e" type="checkbox" value="generalelectrical" name="electrician">
+                            <input class="form-check-input e" type="checkbox" value="general-electrical" name="electrician">
                             <label class="form-check-label" for="generalelectrical">General Electrical Works</label>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4  d-flex justify-content-center ">
-                    <div class="p-services">
-                        <div class="btn btn-light ">
+                <div class="col-sm-3  d-flex justify-content-center ">
+                    <div class="p-services w-100">
+                        <div class="btn btn-light w-100 ">
                             <div class="form-check">
-                            <input class="form-check-input p" type="checkbox" value="generalplumbing" name="plumber">
-                            <label class="form-check-label" for="generalplumbing">General Plumbing Works</label>
+                            <input class="form-check-input p" type="checkbox" value="general-plumbing" name="plumber">
+                            <label class="form-check-label" for="generalplumbing">General Plumbing</label>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4  d-flex justify-content-center ">
-                    <div class="c-services">
-                        <div class="btn btn-light ">
+                <div class="col-sm-3  d-flex justify-content-center ">
+                    <div class="c-services w-100">
+                        <div class="btn btn-light w-100">
                             <div class="form-check">
-                              <input class="form-check-input c" type="checkbox" value="generalcarpentry" name="carpenter">
+                              <input class="form-check-input c" type="checkbox" value="general-carpentry" name="carpenter">
                               <label class="form-check-label" for="generalcarpentry">General Carpentry</label>
                             </div>
                         </div>
@@ -71,32 +120,34 @@
                 </div>
             </div>
             <!-- Option 2  -->
-            <div class="row pt-4">
-                <div class="col-sm-4  d-flex justify-content-center ">
-                    <div class="e-services">
-                        <div class="btn btn-light ">
+            <div class=" row pt-4">
+                <div class="offset-sm-3"></div>
+
+                <div class="col-sm-3  d-flex justify-content-center ">
+                    <div class="e-services w-100">
+                        <div class="btn btn-light w-100 ">
                             <div class="form-check">
-                            <input class="form-check-input e" type="checkbox" value="" name="electrician">
+                            <input class="form-check-input e" type="checkbox" value="light-fan" name="electrician">
                             <label class="form-check-label" for="">Lights and Fans</label>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4  d-flex justify-content-center ">
-                    <div class="p-services">
-                        <div class="btn btn-light ">
+                <div class="col-sm-3  d-flex justify-content-center ">
+                    <div class="p-services w-100">
+                        <div class="btn btn-light w-100 ">
                             <div class="form-check">
-                            <input class="form-check-input p" type="checkbox" value="" name="plumber" >
+                            <input class="form-check-input p" type="checkbox" value="bathroom-fitting" name="plumber" >
                             <label class="form-check-label" for="">Bathroom Fittings</label>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4  d-flex justify-content-center ">
-                    <div class="c-services">
-                        <div class="btn btn-light ">
+                <div class="col-sm-3  d-flex justify-content-center ">
+                    <div class="c-services w-100">
+                        <div class="btn btn-light w-100 ">
                             <div class="form-check">
-                              <input class="form-check-input c" type="checkbox" value="" name="carpenter">
+                              <input class="form-check-input c" type="checkbox" value="furniture" name="carpenter">
                               <label class="form-check-label" for="">Furniture Repair</label>
                             </div>
                         </div>
@@ -104,32 +155,34 @@
                 </div>
             </div>
             <!-- Option 3  -->
-            <div class="row pt-4">
-                <div class="col-sm-4  d-flex justify-content-center ">
-                    <div class="e-services">
-                        <div class="btn btn-light ">
+            <div class=" row pt-4">
+                <div class="offset-sm-3"></div>
+
+                <div class="col-sm-3  d-flex justify-content-center ">
+                    <div class="e-services w-100">
+                        <div class="btn btn-light w-100 ">
                             <div class="form-check">
-                            <input class="form-check-input  e" type="checkbox" value="" name="electrician">
+                            <input class="form-check-input  e" type="checkbox" value="switches-fuses" name="electrician">
                             <label class="form-check-label" for="">Switches, meters and Fuses</label>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4  d-flex justify-content-center ">
-                    <div class="p-services">
-                        <div class="btn btn-light ">
+                <div class="col-sm-3  d-flex justify-content-center ">
+                    <div class="p-services w-100">
+                        <div class="btn btn-light w-100 ">
                             <div class="form-check">
-                            <input class="form-check-input p" type="checkbox" value="" name="plumber">
+                            <input class="form-check-input p" type="checkbox" value="blocks-leakages" name="plumber">
                             <label class="form-check-label" for="">Blocks and Leakages</label>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4  d-flex justify-content-center ">
-                    <div class="c-services">
-                        <div class="btn btn-light ">
+                <div class="col-sm-3  d-flex justify-content-center ">
+                    <div class="c-services w-100">
+                        <div class="btn btn-light w-100 ">
                             <div class="form-check">
-                              <input class="form-check-input c" type="checkbox" value="" name="carpenter">
+                              <input class="form-check-input c" type="checkbox" value="door-window" name="carpenter">
                               <label class="form-check-label" for="">Door and Window Repair</label>
                             </div>
                         </div>
@@ -137,40 +190,58 @@
                 </div>
             </div>
             <!-- Option 4 -->
-            <div class="row pt-4">
-                <div class="col-sm-4  d-flex justify-content-center ">
-                    <div class="e-services">
-                        <div class="btn btn-light ">
+            <div class=" row pt-4">
+                <div class="offset-sm-3"></div>
+
+                <div class="col-sm-3  d-flex justify-content-center ">
+                    <div class="e-services w-100 ">
+                        <div class="btn btn-light w-100 ">
                             <div class="form-check">
-                            <input class="form-check-input e" type="checkbox" value="" name="electrician" >
+                            <input class="form-check-input e" type="checkbox" value="other" name="electrician" >
                             <label class="form-check-label" for="">Other</label>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4  d-flex justify-content-center ">
-                    <div class="p-services">
-                        <div class="btn btn-light ">
+                <div class="col-sm-3  d-flex justify-content-center ">
+                    <div class="p-services w-100">
+                        <div class="btn btn-light w-100 ">
                             <div class="form-check">
-                            <input class="form-check-input p" type="checkbox" value="" name="plumber">
+                            <input class="form-check-input p" type="checkbox" value="other" name="plumber">
                             <label class="form-check-label" for="">other</label>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4  d-flex justify-content-center ">
-                    <div class="c-services">
-                        <div class="btn btn-light ">
+                <div class="col-sm-3  d-flex justify-content-center ">
+                    <div class="c-services w-100">
+                        <div class="btn btn-light w-100 ">
                             <div class="form-check">
-                              <input class="form-check-input c" type="checkbox" value="" name="carpenter" >
+                              <input class="form-check-input c" type="checkbox" value="other" name="carpenter" >
                               <label class="form-check-label" for="">Other</label>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
- 
-        </form>    
+
+            <div class="form-group row pt-4">
+                <label for="description" class="offset-md-1 col-md-2 col-sm-3 col-form-label">If other, then Describe</label>
+                <div class="col-md-8 col-sm-6">
+                    <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+                </div>    
+            </div>
+
+
+
+            <div class="form-group row pt-4 pb-4 ">
+                <div class='offset-md-3 col-sm-3'>
+                    <button type="submit" class="btn btn-warning">Submit</button>
+                </div>
+            </div>
+            
+        </form>  
+        
     </main>
 
 
