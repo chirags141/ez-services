@@ -17,7 +17,11 @@ router.post("/login",async (req,res)=>{
             httpOnly: true,
           });
 
-          res.render("user/userDashboard",{user})
+          if(user){
+              res.redirect("/user/me")
+          }else{
+              res.redirect("/")
+          }
     } catch (err) {
         res.status(400).send(err)
     }
@@ -37,7 +41,11 @@ router.post("/register",async(req,res)=>{
             httpOnly: true,
           });
 
-        res.send("Registered as user") 
+          if(user){
+            res.redirect("/user/me")
+        }else{
+            res.redirect("/")
+        }
     } catch (err) {
         res.status(400).send(err)
     }
@@ -49,20 +57,13 @@ router.post("/register",async(req,res)=>{
 
 router.get("/me",userAuth, async(req,res)=>{
    const user = req.user
-    res.send(user)
+    res.render("user/userDashboard",{user})
 })
-
-//temporary router
-router.get("/me1",userAuth, async(req,res)=>{
-    const user = req.user
-    res.render("user/userDashboard",{user:req.user})
- })
-
 
 
 // user Logout Route
-//  POST    /user/logout
-router.post('/logout',userAuth,async(req,res)=>{
+//  GET    /user/logout
+router.get('/logout',userAuth,async(req,res)=>{
     try {
         req.user.tokens = req.user.tokens.filter((token)=>{
             return token.token !== req.token
@@ -75,8 +76,8 @@ router.post('/logout',userAuth,async(req,res)=>{
 })
 
 // user Logout All Route
-//  POST    /user/logoutAll
-router.post('/logoutAll',userAuth, async(req,res)=>{
+//  GET    /user/logoutAll
+router.get('/logoutAll',userAuth, async(req,res)=>{
     try {
         req.user.tokens = []
         await req.user.save()
@@ -84,6 +85,12 @@ router.post('/logoutAll',userAuth, async(req,res)=>{
     } catch (err) {
         res.status(500).send()
     }
+})
+
+
+router.get('/bookService',userAuth,async(req,res)=>{
+    const user = req.user
+    res.render("user/bookService",{user})
 })
 
 module.exports = router

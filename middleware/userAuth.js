@@ -9,7 +9,7 @@ const userAuth = async(req,res,next)=>{
         const user = await User.findOne({_id : decoded._id,"tokens.token":token})
         
         if(!user){
-            throw new Error()
+            res.redirect("/")
         }
         req.token = token
         req.user = user

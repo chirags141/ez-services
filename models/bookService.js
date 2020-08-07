@@ -5,6 +5,11 @@ const validator = require("validator")
 // const serviceSchema = new mongoose.Schema({name:String})
 
 const bookServiceSchema = new mongoose.Schema({
+
+    // transactionID :{
+    //     type:String  
+    // },
+
     name:{
         type:String,
         trim : true
