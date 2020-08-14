@@ -4,7 +4,7 @@ const validator = require("validator")
 
 // const serviceSchema = new mongoose.Schema({name:String})
 
-const bookServiceSchema = new mongoose.Schema({
+const ServiceSchema = new mongoose.Schema({
 
     // transactionID :{
     //     type:String  
@@ -14,7 +14,7 @@ const bookServiceSchema = new mongoose.Schema({
         type:String,
         trim : true
     },
-
+    
     email:{
         type:String,
         trim:true,
@@ -30,7 +30,7 @@ const bookServiceSchema = new mongoose.Schema({
         type:Number,
         min : 10
     },
-
+    
     address:{
         type:String
     },
@@ -61,6 +61,11 @@ const bookServiceSchema = new mongoose.Schema({
         enum: ['appointed',"unappointed",'accepted','rejected'] 
     },
     
+    user:{
+        type: mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref : "User"
+    },
 
     createdAt:{
         type:Date,
@@ -71,5 +76,5 @@ const bookServiceSchema = new mongoose.Schema({
 
 
 
-const BookService = mongoose.model("BookService", bookServiceSchema)
-module.exports = BookService 
+const Service = mongoose.model("Service", ServiceSchema)
+module.exports = Service 
