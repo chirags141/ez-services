@@ -1,1 +1,75 @@
-<p>my bookings</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+
+    <!-- Custom styles for this template -->
+    <link href="/css/dashboard.css" rel="stylesheet">
+
+    <title>EZ-Services</title>
+</head>
+
+<body>
+    <%- include('../partials/userDashboardNav'); %>
+
+    <!-- Side nav -->
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <%- include('../partials/userDashboardSideNav'); %>
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1>Bookings</h1>
+                </div>
+                <div class="container text-center">
+                    <h3>Bookings</h3>
+                </div>
+
+
+                <div class="table-responsive border shadow">
+                    <table class="table table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col ">Booking ID</th>
+                                <th scope="col">Service</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Date</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <% var i = 1 %>
+                        <% bookings.forEach(function(booking){ %>
+                        <tbody>
+                            <tr>
+                                <th scope="row"><%= i %></th>
+                                <td><%= booking._id %></td>
+                                <td><%= _.capitalize(booking.typeOfService) %></td>
+                                <td><%=  _.capitalize(booking.status) %></td>
+                                <td><%= moment(booking.createdAt).format( 'MMMM Do YYYY, h:mm:ss a') %></td>
+                                <td>
+                                    <a href="#" class="btn  btn-outline-danger btn-sm "><i class="fas fa-trash-alt "></i></a>
+                                    <a href="#" class="btn  btn-outline-primary btn-sm ">Open</a>
+                                </td>
+                            </tr>
+                            <% i++ %>
+                        </tbody>
+                        <% }) %>
+                    </table>
+                </div>
+
+
+            </main>
+        </div>
+    </div>
+
+    <%- include('../partials/script'); %>
+
+    <script src="dashboard.js"></script>
+</body>
+
+</html>

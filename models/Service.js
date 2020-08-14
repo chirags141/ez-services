@@ -4,7 +4,7 @@ const validator = require("validator")
 
 // const serviceSchema = new mongoose.Schema({name:String})
 
-const ServiceSchema = new mongoose.Schema({
+const serviceSchema = new mongoose.Schema({
 
     // transactionID :{
     //     type:String  
@@ -63,7 +63,6 @@ const ServiceSchema = new mongoose.Schema({
     
     user:{
         type: mongoose.Schema.Types.ObjectId,
-        required:true,
         ref : "User"
     },
 
@@ -73,8 +72,16 @@ const ServiceSchema = new mongoose.Schema({
     }
 })
 
+// serviceSchema.pre('save', async function(next){
+//     const user = this
+//     if(user.isModified('password')){
+//         user.password = await bcrypt.hash(user.password, 8)
+//     }
+//     next()
+// })
 
 
 
-const Service = mongoose.model("Service", ServiceSchema)
+
+const Service = mongoose.model("Service", serviceSchema)
 module.exports = Service 

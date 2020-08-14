@@ -53,11 +53,6 @@ const userSchema = new mongoose.Schema({
     }
 })
 
-userSchema.virtual('services',{
-    ref:'Service',
-    localField:'_id',
-    foreignField:"user"
-})
 
 userSchema.methods.generateAuthToken = async function(){
     const user = this

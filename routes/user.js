@@ -1,5 +1,7 @@
 const express = require('express')
 const router = express.Router()
+const moment = require("moment")
+const _ = require('lodash')
 const userAuth = require("../middleware/userAuth")
 const User = require('../models/User')
 const Service = require("../models/Service")
@@ -104,14 +106,10 @@ router.post('/service',userAuth,async(req,res)=>{
         typeOfService : req.body.bookService,
         subServices : req.body.electrician || req.body.plumber || req.body.carpenter,
         description: req.body.description,
-        user :req.user._id  
+        user :req.user.id  
     })
     try {
         await service.save()
-        await req.user.populate("services").execPopulate()
-        console.log(req.user.task);
-  
-        // console.log(service);
         res.redirect("/users/bookings")       
     } catch (err) {
         res.send(err)
@@ -120,7 +118,18 @@ router.post('/service',userAuth,async(req,res)=>{
 })
 
 router.get("/bookings",userAuth,async(req,res)=>{
-    res.render("user/bookings")
+    const user = req.user;
+    const bookings = await Service.find({user:user.id})
+
+    .sort({createdAt:'desc'})
+    .lean()
+
+    res.render("user/bookings",{
+        user,
+        bookings,
+        moment,
+        _
+    })
 })
 
 
