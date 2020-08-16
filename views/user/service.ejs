@@ -43,7 +43,7 @@
               <div class="form-group row">
                   <label for="bookingName" class="offset-md-1 col-md-2 col-sm-3 col-form-label">Name</label>
                   <div class="col-sm-5">
-                      <input type="text" class="form-control" id="" name="name"  value= <%= user.name %>>
+                      <input type="text" class="form-control" id="" name="name"  value= "<%= user.name %>">
                   </div>
               </div>
   
@@ -65,7 +65,7 @@
               <div class="form-group row">
                   <label for="address" class="offset-md-1 col-md-2 col-sm-3 col-form-label">Address</label>
                   <div class="col-sm-5">
-                      <input type="text" class="form-control" id="" name="address" placeholder="Enter address ">
+                      <input type="text" class="form-control" id="" name="address" value="<%= user.address %>" placeholder="Enter address ">
                   </div>
               </div>
   
@@ -85,10 +85,10 @@
               </div>
     
               <div class="row pb">
-                  <label for="bookService" class="col-sm-3 col-md-2 offset-md-1">Choose a service</label>
+                  <label for="bookService" class="col-sm-3 col-md-2 offset-md-1" >Choose a service</label>
                   <div class="col-sm-3">
                       <div class="form-check form-check-inline d-flex justify-content-center">
-                          <input class="form-check-input" type="radio" name="bookService" id="electrician" value="electrician">
+                          <input class="form-check-input" type="radio" name="bookService" id="electrician" value="electrician" required>
                           <label class="form-check-label" for="electrician">Electrician</label>
                       </div>
                   </div>

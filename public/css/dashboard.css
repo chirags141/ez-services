@@ -94,3 +94,13 @@
   .center{
     margin-left: auto;
   }
+
+
+  .btn-float{
+    float: left;
+    margin-right: 10px;
+  }
+
+/* #delete-service{
+  
+} */

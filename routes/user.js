@@ -89,8 +89,9 @@ router.get('/logoutAll',userAuth, async(req,res)=>{
     }
 })
 
+/* ------------------------------------------------------------------------------ */
 
-// All Services by Users
+// Book a service
 // GET /users/service
 router.get('/service',userAuth,async(req,res)=>{
     const user = req.user
@@ -99,7 +100,6 @@ router.get('/service',userAuth,async(req,res)=>{
 
 // posting  Service by Users
 // POST /users/service
-
 
 router.post('/service',userAuth,async(req,res)=>{
     const service = new Service({
@@ -120,11 +120,39 @@ router.post('/service',userAuth,async(req,res)=>{
     } catch (err) {
         res.send(err)
     }
+    
+})
 
+router.get("/service/:id",userAuth,async(req,res)=>{
+    try {
+        const service = await Service.findOne({_id:req.params.id})
+        console.log(service);
+       
+        res.render("/user/bookingId")
+
+        
+    } catch (err) {
+        res.send(err)
+    }
 })
 
 
-router.get
+// Deleting Service by ID
+// DELETE /users/service/:id
+
+router.delete("/service/:id", userAuth ,async(req,res)=>{
+    try {
+        await Service.deleteOne({ _id: req.params.id , user: req.user.id })
+        res.redirect("/users/bookings")
+
+    } catch (e) {
+        res.status(500).send(e)
+    }
+})
+
+
+
+/* ------------------------------------------------------------------------------ */
 
 router.get("/bookings",userAuth,async(req,res)=>{
     const user = req.user;
