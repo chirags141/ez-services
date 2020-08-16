@@ -7,7 +7,7 @@ const User = require('../models/User')
 const Service = require("../models/Service")
 
 // user Login Route
-// POST     /user/login
+// POST     /users/login
 
 router.post("/login",async (req,res)=>{
     try {
@@ -30,7 +30,7 @@ router.post("/login",async (req,res)=>{
 })
 
 // user register Route
-// POST /user/register
+// POST /users/register
 
 router.post("/register",async(req,res)=>{
     const user = new User(req.body)
@@ -55,7 +55,7 @@ router.post("/register",async(req,res)=>{
 })
 
 // user profile Route
-//  GET    /user/me
+//  GET    /users/me
 
 router.get("/me",userAuth, async(req,res)=>{
    const user = req.user
@@ -64,7 +64,7 @@ router.get("/me",userAuth, async(req,res)=>{
 
 
 // user Logout Route
-//  GET    /user/logout
+//  GET    /users/logout
 router.get('/logout',userAuth,async(req,res)=>{
     try {
         req.user.tokens = req.user.tokens.filter((token)=>{
@@ -78,7 +78,7 @@ router.get('/logout',userAuth,async(req,res)=>{
 })
 
 // user Logout All Route
-//  GET    /user/logoutAll
+//  GET    /users/logoutAll
 router.get('/logoutAll',userAuth, async(req,res)=>{
     try {
         req.user.tokens = []
@@ -90,10 +90,16 @@ router.get('/logoutAll',userAuth, async(req,res)=>{
 })
 
 
+// All Services by Users
+// GET /users/service
 router.get('/service',userAuth,async(req,res)=>{
     const user = req.user
     res.render("user/service",{user})
 })
+
+// posting  Service by Users
+// POST /users/service
+
 
 router.post('/service',userAuth,async(req,res)=>{
     const service = new Service({
@@ -116,6 +122,9 @@ router.post('/service',userAuth,async(req,res)=>{
     }
 
 })
+
+
+router.get
 
 router.get("/bookings",userAuth,async(req,res)=>{
     const user = req.user;

@@ -1,14 +1,16 @@
 const mongoose = require('mongoose');
 const validator = require("validator")
+const {nanoid} = require("nanoid")
 
 
 // const serviceSchema = new mongoose.Schema({name:String})
 
 const serviceSchema = new mongoose.Schema({
 
-    // transactionID :{
-    //     type:String  
-    // },
+    _id: {
+        type: String,
+        default: () => nanoid(6)
+      },
 
     name:{
         type:String,
@@ -58,7 +60,7 @@ const serviceSchema = new mongoose.Schema({
     status:{
         type:String,
         default:"unappointed",
-        enum: ['appointed',"unappointed",'accepted','rejected'] 
+        enum: ['appointed',"unappointed",'accepted','rejected','completed','inprogress'] 
     },
     
     user:{
@@ -66,21 +68,22 @@ const serviceSchema = new mongoose.Schema({
         ref : "User"
     },
 
-    createdAt:{
-        type:Date,
-        default:Date.now()
-    }
+
+},{
+    timestamps:true
 })
 
-// serviceSchema.pre('save', async function(next){
-//     const user = this
-//     if(user.isModified('password')){
-//         user.password = await bcrypt.hash(user.password, 8)
-//     }
-//     next()
-// })
-
-
+serviceSchema.pre('save', async function(next){
+    const service = this
+    if(service.typeOfService == "electrician"){
+        service._id = "E-" + service._id
+    } else if(service.typeOfService == "plumber"){
+        service._id = "P-" + service._id
+    }else if(service.typeOfService == "carpenter"){
+        service._id = "C-" + service._id
+    }
+    next()
+})
 
 
 const Service = mongoose.model("Service", serviceSchema)

@@ -4,17 +4,25 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const dotenv = require('dotenv')
 const mongoose = require("mongoose")
-const connectDB = require('./config/db')
+const methodOverride = require('method-override');
 const jwt = require("jsonwebtoken")
 var cookieParser = require('cookie-parser')
 const cors = require('cors');
 
+
 //Load config
 dotenv.config({path:"./config/config.env"})
 
+// Connect Database
+const connectDB = require('./config/db')
 connectDB()
 
 const app = express()
+
+// Method-override for PUT and DELETE
+app.use(methodOverride('_method'));
+
+
 
 //Body-parser
 app.use(bodyParser.json())
