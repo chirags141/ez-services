@@ -125,14 +125,23 @@ router.post('/service',userAuth,async(req,res)=>{
 
 router.get("/service/:id",userAuth,async(req,res)=>{
     try {
-        const service = await Service.findOne({_id:req.params.id})
-        console.log(service);
-       
-        res.render("/user/bookingId")
+        const user = req.user
+        let service = await Service.findOne({_id:req.params.id}).lean()
+        if(!service){
+            res.send("error");
+            
+        }
 
-        
+        console.log(service);
+
+        res.render("user/bookingId",{
+            user,
+            service
+        })
     } catch (err) {
+        console.error(err);
         res.send(err)
+        
     }
 })
 
