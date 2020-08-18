@@ -9,7 +9,6 @@ const jwt = require("jsonwebtoken")
 var cookieParser = require('cookie-parser')
 const cors = require('cors');
 
-
 //Load config
 dotenv.config({path:"./config/config.env"})
 
