@@ -7,9 +7,9 @@ const {nanoid} = require("nanoid")
 
 const serviceSchema = new mongoose.Schema({
 
-    _id: {
+    bookingId: {
         type: String,
-        default: () => nanoid(6)
+        default: () => nanoid(8)
       },
 
     name:{
@@ -73,17 +73,17 @@ const serviceSchema = new mongoose.Schema({
     timestamps:true
 })
 
-serviceSchema.pre('save', async function(next){
-    const service = this
-    if(service.typeOfService == "electrician"){
-        service._id = "E-" + service._id
-    } else if(service.typeOfService == "plumber"){
-        service._id = "P-" + service._id
-    }else if(service.typeOfService == "carpenter"){
-        service._id = "C-" + service._id
-    }
-    next()
-})
+// serviceSchema.pre('save', async function(next){
+//     const service = this
+//     if(service.typeOfService == "electrician"){
+//         service.bookingId = "E-" + service.bookingId
+//     } else if(service.typeOfService == "plumber"){
+//         service.bookingId = "P-" + service.bookingId
+//     }else if(service.typeOfService == "carpenter"){
+//         service.bookingId = "C-" + service.bookingId
+//     }
+//     next()
+// })
 
 
 const Service = mongoose.model("Service", serviceSchema)

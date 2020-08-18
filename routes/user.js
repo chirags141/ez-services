@@ -125,23 +125,18 @@ router.post('/service',userAuth,async(req,res)=>{
 
 router.get("/service/:id",userAuth,async(req,res)=>{
     try {
+        const bookingId = req.params.id
         const user = req.user
-        let service = await Service.findOne({_id:req.params.id}).lean()
-        if(!service){
-            res.send("error");
-            
-        }
-
-        console.log(service);
+        const service = await Service.findOne({bookingId, user:user.id});
 
         res.render("user/bookingId",{
             user,
-            service
+            service,
+            moment,
+            _
         })
     } catch (err) {
-        console.error(err);
-        res.send(err)
-        
+        res.send(err) 
     }
 })
 
@@ -151,7 +146,7 @@ router.get("/service/:id",userAuth,async(req,res)=>{
 
 router.delete("/service/:id", userAuth ,async(req,res)=>{
     try {
-        await Service.deleteOne({ _id: req.params.id , user: req.user.id })
+        await Service.deleteOne({ bookingId: req.params.id , user: req.user.id })
         res.redirect("/users/bookings")
 
     } catch (e) {

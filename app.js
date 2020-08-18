@@ -37,11 +37,11 @@ app.use(methodOverride(function (req, res) {
     }
   }))
 
+  // Views
+app.set('views', path.join(__dirname, 'views'));
+
 // Set view Engine
 app.set('view engine', 'ejs');
-
-// Views
-app.set('views', path.join(__dirname, 'views'));
 
 //Static Folder
 app.use(express.static(path.join(__dirname,'public')))
@@ -57,8 +57,6 @@ app.use("/",indexRouter)
 app.use('/users',userRouter)
 app.use('/employees',employeeRouter)
 app.use('/services',serviceRouter)
-
-
 
 //PORT Number
 const PORT = process.env.PORT || 3000
