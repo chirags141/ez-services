@@ -123,6 +123,8 @@ router.post('/service',userAuth,async(req,res)=>{
     
 })
 
+// Get Service by ID
+// GET /users/service/:id
 router.get("/service/:id",userAuth,async(req,res)=>{
     try {
         const bookingId = req.params.id
@@ -155,7 +157,6 @@ router.delete("/service/:id", userAuth ,async(req,res)=>{
 })
 
 
-
 /* ------------------------------------------------------------------------------ */
 
 router.get("/bookings",userAuth,async(req,res)=>{
@@ -172,6 +173,19 @@ router.get("/bookings",userAuth,async(req,res)=>{
         _
     })
 })
+
+// ----------------------------------------------------------------------------------------------
+
+router.get("/status",userAuth,async(req,res)=>{
+    const user = req.user;
+    const bookingId = req.query.bookingId
+    const service = await Service.findOne({bookingId}).exec()
+    console.log(service)
+
+
+    res.render("user/status.ejs",{user,service})
+})
+
 
 
 

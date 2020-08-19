@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+
+    <!-- Custom styles for this template -->
+    <link href="/css/dashboard.css" rel="stylesheet">
+
+    <title>EZ-Services</title>
+</head>
+
+<body>
+    <%- include('../partials/userDashboardNav'); %>
+
+    <!-- Side nav -->
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <%- include('../partials/userDashboardSideNav'); %>
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div class="row d-flex justify-content-center pb-2 pt-2">
+                <h3 class="desc bg-dark text-white p-3 rounded-pill align-items-center">Service Status</h3>
+            </div>
+
+            <div class="container">
+                <form action="#" method="GET">
+                    <div class="row">
+                        <div class="input-group mb-3 col-sm-6 offset-sm-3 offset-lg-4 col-lg-4">
+                            <input type="search" class="form-control" name="bookingId" placeholder="Enter Booking Id">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-primary" type="submit" id=""><i class="fa  fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- Receipt -->
+                <div class="card">
+                    <div class="card-header text-center font-weight-bold">
+                       Booking Id : 123456
+                    </div>
+                    <div class="card-body">
+                      <div class="col-lg-4">
+                          
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            </main>
+        </div>
+    </div>
+
+    <%- include('../partials/script'); %>
+
+</body>
+
+</html>
