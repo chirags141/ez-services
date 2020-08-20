@@ -180,7 +180,8 @@ router.get("/status",userAuth,async(req,res)=>{
     const user = req.user;
     const bookingId = req.query.bookingId
     const service = await Service.findOne({bookingId}).exec()
-    console.log(service)
+
+    // More code to be updated
 
 
     res.render("user/status.ejs",{user,service})

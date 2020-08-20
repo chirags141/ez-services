@@ -44,10 +44,6 @@ const employeeSchema = new mongoose.Schema({
         min : 10
     },
 
-    verification:{
-        type:String
-    },
-
     serviceCategory : {
         type:Array
     },
@@ -57,10 +53,9 @@ const employeeSchema = new mongoose.Schema({
             required: true
         }
     }],
-    createdAt:{
-        type:Date,
-        default:Date.now()
-    }
+
+},{
+    timestamps:true
 })
 
 employeeSchema.methods.generateAuthToken = async function(){

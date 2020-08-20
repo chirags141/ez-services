@@ -2,14 +2,14 @@ const jwt = require('jsonwebtoken')
 const Employee = require('../models/Employee')
 
 
-const employeeAuth = async(req,res,next)=>{
+const empAuth = async(req,res,next)=>{
     try {
         const token = req.cookies.token
         const decoded = jwt.verify(token,process.env.AUTH_SIGNATURE)
         const employee = await Employee.findOne({_id : decoded._id,"tokens.token":token})
         
         if(!employee){
-            throw new Error()
+            res.redirect("/")
         }
         
         req.token = token
@@ -20,4 +20,4 @@ const employeeAuth = async(req,res,next)=>{
     }
 }
 
-module.exports = employeeAuth
+module.exports = empAuth
