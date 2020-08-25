@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Employee = require('../models/Employee')
 const empAuth = require('../middleware/employeeAuth')
-
+const Service = require('../models/Service')
 
 // employee Login Route
 //      /employee/login
@@ -17,7 +17,7 @@ router.post("/login",async(req,res)=>{
             httpOnly: true,
           });
 
-          if(user){
+          if(employee){
             res.redirect("/employees/me")
         }else{
             res.redirect("/")
@@ -42,7 +42,7 @@ router.post("/register",async (req,res)=>{
             httpOnly: true,
           });
 
-          if(user){
+          if(employee){
             res.redirect("/employees/me")
         }else{
             res.redirect("/")
@@ -51,14 +51,6 @@ router.post("/register",async (req,res)=>{
         res.status(400).send(err)
     }
 })
-
-// employee profile Route
-//          /employee/me
-
-router.get("/me",empAuth, async(req,res)=>{
-    const employee = req.employee
-    res.render("employee/empDashboard",{employee})
- })
 
  // employee Logout Route
 //  POST    /employee/logout
@@ -86,6 +78,24 @@ router.post('/logoutAll',empAuth, async(req,res)=>{
     }
 })
 
+
+// employee profile Route
+//          /employee/me
+
+router.get("/me",empAuth, async(req,res)=>{
+    const employee = req.employee
+    res.render("employee/empDashboard",{employee})
+ })
+
+ // employee available bookings route
+ //         /employees/availableBookings
+
+ router.get("/availableBookings",empAuth,async(req,res)=>{
+     const employee = req.employee
+     res.render("employee/availableBookings",{
+         employee
+     })
+ })
 
 module.exports = router
 
