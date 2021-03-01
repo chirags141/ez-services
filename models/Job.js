@@ -12,7 +12,7 @@ const jobSchema = new mongoose.Schema({
 
     
     service:{
-        type:mongoose.Schema.Types.String,
+        type:mongoose.Schema.Types.bookingId,
         ref : "Service"
     },
 
@@ -29,7 +29,7 @@ const jobSchema = new mongoose.Schema({
     status:{
         type:String,
         default:"unappointed",
-        enum : [accepted,rejected,unappointed,completed]
+        enum : ["appointed","rejected","unappointed","completed"]
     },
 
     jobTime:{
@@ -48,6 +48,5 @@ const jobSchema = new mongoose.Schema({
 
 
 
-
-const Service = mongoose.model("Service", serviceSchema)
-module.exports = Service 
+const Job = mongoose.model("Job", jobSchema)
+module.exports = Job

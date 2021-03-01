@@ -1,5 +1,7 @@
 const express = require('express')
 const router = express.Router()
+const moment = require("moment")
+const _ = require('lodash')
 const Employee = require('../models/Employee')
 const empAuth = require('../middleware/employeeAuth')
 const Service = require('../models/Service')
@@ -92,8 +94,12 @@ router.get("/me",empAuth, async(req,res)=>{
 
  router.get("/availableBookings",empAuth,async(req,res)=>{
      const employee = req.employee
+     const bookings = await Service.find({status:'unappointed'})
+    .sort({createdAt:'asc'})
+    .lean()
+
      res.render("employee/availableBookings",{
-         employee
+         employee,bookings,moment,_
      })
  })
 

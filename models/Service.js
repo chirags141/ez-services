@@ -60,7 +60,7 @@ const serviceSchema = new mongoose.Schema({
     status:{
         type:String,
         default:"unappointed",
-        enum: ['appointed',"unappointed",'accepted','rejected','completed','inprogress'] 
+        enum: ['appointed',"unappointed",'rejected','completed'] 
     },
     
     user:{
