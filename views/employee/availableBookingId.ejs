@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+
+    <!-- Custom styles for this template -->
+    <link href="/css/dashboard.css" rel="stylesheet">
+    <title>EZ-Services</title>
+
+</head>
+<body>
+    <%- include('../partials/empDashboardNav'); %>
+
+    <div class="container-fluid">
+        <div class="row">
+            <%- include('../partials/empDashboardSideNav'); %>
+                
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                <div class="container">
+
+                    <div class="row d-flex justify-content-center pb-2 pt-2">
+                        <h3 class="desc bg-dark text-white p-3 rounded-pill">Service Description</h3>
+                    </div>
+
+                    <div class="container booking-receipt border shadow">
+                        <div class="row border-bottom">
+                            <div class="col-sm-2">
+                                <p class="font-weight-bold">Booking-Id</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p ><%= service.bookingId %><p>
+                            </div>
+                            <div class="col-sm-2">
+                                <p class="font-weight-bold">Booking Time</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p ><%= moment(service.createdAt).format( 'MMMM Do YYYY, h:mm:ss a') %></p>
+                            </div>
+                            
+                        </div>
+    
+                        <div class="row border-bottom">
+                            <div class="col-sm-2">
+                                <p class="font-weight-bold">Name</p>
+                            </div>
+                            <div class=" col-sm-6">
+                                <p ><%= service.name %> <p>
+                            </div>
+                        </div> 
+    
+                        <div class="row border-bottom">
+                            <div class="col-sm-2 col-md-2 col-lg-2">
+                                <p class="font-weight-bold">Email</p>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4 border-bottom">
+                                <p ><%= service.email %></p>
+                            </div>
+                            <div class="col-sm-2 col-md-2 col-lg-2">
+                                <p class="font-weight-bold">Phone</p>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <p ><%= service.mobile %><p>
+                            </div>
+                        </div>
+    
+                        <div class="row border-bottom">
+                            <div class="col-sm-2">
+                                <p class="font-weight-bold">Address</p>
+                            </div>
+                            <div class=" col-sm-6">
+                                <p ><%= service.address %><p>
+                            </div>
+                        </div> 
+    
+                        <div class="row border-bottom">
+                            <div class="col-sm-2 col-md-2 col-lg-2">
+                                <p class="font-weight-bold">City</p>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4 border-bottom">
+                                <p ><%= service.city %></p>
+                            </div>
+                            <div class="col-sm-2 col-md-2 col-lg-2">
+                                <p class="font-weight-bold">State</p>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <p ><%= service.state %><p>
+                            </div>
+                        </div>
+    
+                        <div class="row border-bottom">
+                            <div class="col-sm-2">
+                                <p class="font-weight-bold">Service Category</p>
+                            </div>
+                            <div class=" col-sm-6">
+                                <p ><%= _.capitalize(service.typeOfService)%><p>
+                            </div>
+                        </div>
+
+                        <div class="row border-bottom">
+                            <div class="col-sm-2">
+                                <p class="font-weight-bold">Sub Service</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <p>
+                                    <% var i=1 %>
+                                    <% service.subServices.forEach(function(subService){ %>
+                                        <p><%= i %>) <%= _.capitalize(subService) %></p>
+                                        <% i++ %>    
+                                    <% }) %>
+                                </p>
+                            </div>
+                        </div>
+    
+                        <div class="row border-bottom">
+                            <div class="col-sm-2">
+                                <p class="font-weight-bold">Description</p>
+                            </div>
+                            <div class=" col-sm-6">
+                                <p ><%= service.description%><p>
+                            </div>
+                        </div>
+
+                        <div class="row border-bottom">
+                            <div class="col-sm-2">
+                                <p class="font-weight-bold">Current Status</p>
+                            </div>
+                            <div class=" col-sm-6">
+                                <p ><%= _.capitalize(service.status) %><p>
+                            </div>
+                        </div>
+                        
+                        <!-- Form/Modal for submit the acception or rejection 
+                        inputing data to Job.js -->
+                        
+                        <div class="row ">
+                            <div class=" offset-sm-5 col-sm-4 mt-3">
+                                <button type="button" class="btn btn-success">Accept</button>
+                                <button type="button" class="btn btn-danger">Reject</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </main>
+        </div>
+    </div>
+    <%- include('../partials/script'); %>
+</body>
+</html>

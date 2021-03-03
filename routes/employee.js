@@ -103,5 +103,19 @@ router.get("/me",empAuth, async(req,res)=>{
      })
  })
 
+ router.get("/available_service/:id",empAuth,async(req,res)=>{
+     try {
+         serviceId = req.params.id
+         const employee = req.employee
+         const service = await Service.findOne({bookingId:serviceId})
+
+         res.render("employee/availableBookingId",{
+             service,employee,moment,_
+        })
+     } catch (e) {
+         res.status(500).send(e)
+     }
+ })
+
 module.exports = router
 
