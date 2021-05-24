@@ -52,10 +52,10 @@
                       <td><%= moment(booking.createdAt).format( 'MMMM Do YYYY, h:mm:ss a') %></td>
                       <td>
                           <a href="/employees/available_service/<%= booking.bookingId %>" class="btn  btn-outline-primary btn-float  btn-sm ">View</a>
-                          <form method="POST" action=""  id="delete-service">
+                          <!-- <form method="POST" action=""  id="delete-service"> -->
                               <input type="hidden" name="_method" value="DELETE">
-                              <button type="submit" class="btn btn-outline-danger btn-sm "><i class="fas fa-trash-alt"></i></button>
-                          </form>
+                              <!-- <button type="submit" class="btn btn-outline-danger btn-sm "><i class="fas fa-trash-alt"></i></button> -->
+                          <!-- </form> -->
                       </td>
                   </tr>
                   <% i++ %>

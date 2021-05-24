@@ -5,26 +5,27 @@ const _ = require('lodash')
 const Employee = require('../models/Employee')
 const empAuth = require('../middleware/employeeAuth')
 const Service = require('../models/Service')
+const Job = require("../models/Job")
 
 // employee Login Route
 //      /employee/login
 
-router.post("/login",async(req,res)=>{
-    try{
+router.post("/login", async (req, res) => {
+    try {
         const employee = await Employee.findByCredentials(req.body.email, req.body.password)
         const token = await employee.generateAuthToken()
-    
+
         res.cookie('token', token, {
             secure: false,
             httpOnly: true,
-          });
+        });
 
-          if(employee){
+        if (employee) {
             res.redirect("/employees/me")
-        }else{
+        } else {
             res.redirect("/")
         }
-    } catch(err) {
+    } catch (err) {
         res.status(400).send(err)
     }
 })
@@ -32,7 +33,7 @@ router.post("/login",async(req,res)=>{
 // employee register Route
 //      /employee/register
 
-router.post("/register",async (req,res)=>{
+router.post("/register", async (req, res) => {
 
     const employee = new Employee(req.body)
     try {
@@ -42,11 +43,11 @@ router.post("/register",async (req,res)=>{
         res.cookie('token', token, {
             secure: false,
             httpOnly: true,
-          });
+        });
 
-          if(employee){
+        if (employee) {
             res.redirect("/employees/me")
-        }else{
+        } else {
             res.redirect("/")
         }
     } catch (err) {
@@ -54,11 +55,11 @@ router.post("/register",async (req,res)=>{
     }
 })
 
- // employee Logout Route
+// employee Logout Route
 //  POST    /employee/logout
-router.post('/logout',empAuth,async(req,res)=>{
+router.post('/logout', empAuth, async (req, res) => {
     try {
-        req.employee.tokens = req.employee.tokens.filter((token)=>{
+        req.employee.tokens = req.employee.tokens.filter((token) => {
             return token.token !== req.token
         })
         await req.employee.save()
@@ -70,7 +71,7 @@ router.post('/logout',empAuth,async(req,res)=>{
 
 // employee Logout All Route
 //  POST    /employee/logoutAll
-router.post('/logoutAll',empAuth, async(req,res)=>{
+router.get('/logoutAll', empAuth, async (req, res) => {
     try {
         req.employee.tokens = []
         await req.employee.save()
@@ -84,38 +85,93 @@ router.post('/logoutAll',empAuth, async(req,res)=>{
 // employee profile Route
 //          /employee/me
 
-router.get("/me",empAuth, async(req,res)=>{
+router.get("/me", empAuth, async (req, res) => {
     const employee = req.employee
-    res.render("employee/empDashboard",{employee})
- })
+    res.render("employee/empDashboard", {
+        employee
+    })
+})
 
- // employee available bookings route
- //         /employees/availableBookings
+// employee available bookings route
+//         /employees/availableBookings
 
- router.get("/availableBookings",empAuth,async(req,res)=>{
-     const employee = req.employee
-     const bookings = await Service.find({status:'unappointed'})
-    .sort({createdAt:'asc'})
-    .lean()
-
-     res.render("employee/availableBookings",{
-         employee,bookings,moment,_
-     })
- })
-
- router.get("/available_service/:id",empAuth,async(req,res)=>{
-     try {
-         serviceId = req.params.id
-         const employee = req.employee
-         const service = await Service.findOne({bookingId:serviceId})
-
-         res.render("employee/availableBookingId",{
-             service,employee,moment,_
+router.get("/availableBookings", empAuth, async (req, res) => {
+    const employee = req.employee
+    const bookings = await Service.find({
+            status: 'unappointed'
         })
-     } catch (e) {
-         res.status(500).send(e)
-     }
- })
+        .sort({
+            createdAt: 'asc'
+        })
+        .lean()
 
+    res.render("employee/availableBookings", {
+        employee,
+        bookings,
+        moment,
+        _
+    })
+})
+
+router.get("/available_service/:id", empAuth, async (req, res) => {
+    try {
+        serviceId = req.params.id
+        const employee = req.employee
+        const service = await Service.findOne({
+            bookingId: serviceId
+        })
+
+        res.render("employee/availableBookingId", {
+            service,
+            employee,
+            moment,
+            _
+        })
+    } catch (e) {
+        res.status(500).send(e)
+    }
+})
+
+
+router.post("/available_service/:id", empAuth, async (req, res) => {
+
+    const jobDate = req.body.jobDate;
+    const serviceId = req.params.id
+    // Updating status of Service as appointed
+    const service1 = await Service.findOneAndUpdate({
+        bookingId: serviceId
+    }, {
+        status: "appointed"
+    })
+    // Updated status service
+    const service = await Service.findOne({
+        bookingId: serviceId
+    })
+    //Creating a new Job 
+    const job = new Job({
+        service: service._id,
+        employee: req.employee._id,
+        user: service.user,
+        status: "appointed",
+        // jobDate : jobDate
+    })
+
+    try {
+        await job.save();
+        console.log(job);
+        res.redirect('/employees/availableBookings')
+
+        // Rendering to the Current Booking Page
+    } catch (e) {
+        res.status(404).send(e)
+    }
+
+})
+
+// employee current bookings route
+//         /employees/currentBookings
+
+router.get("/currentBookings", empAuth ,async (req,res)=>{
+    // Work from here from next day
+})
 module.exports = router
-
