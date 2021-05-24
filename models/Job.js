@@ -12,7 +12,7 @@ const jobSchema = new mongoose.Schema({
 
     
     service:{
-        type:mongoose.Schema.Types.bookingId,
+        type:mongoose.Schema.Types.ObjectId,
         ref : "Service"
     },
 
@@ -32,16 +32,12 @@ const jobSchema = new mongoose.Schema({
         enum : ["appointed","rejected","unappointed","completed"]
     },
 
-    jobTime:{
+    jobDate:{
         type:Date
-    },
-
+    }
     // price:{
     //     type:Number
     // }
-
-    
-
 },{
     timestamps:true
 })
