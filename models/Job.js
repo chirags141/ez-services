@@ -12,7 +12,7 @@ const jobSchema = new mongoose.Schema({
 
     
     service:{
-        type:mongoose.Schema.Types.String,
+        type:mongoose.Schema.Types.ObjectId,
         ref : "Service"
     },
 
