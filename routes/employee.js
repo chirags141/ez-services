@@ -83,7 +83,7 @@ router.get('/logoutAll', empAuth, async (req, res) => {
 
 
 // employee profile Route
-//          /employee/me
+//  GET        /employee/me
 
 router.get("/me", empAuth, async (req, res) => {
     const employee = req.employee
@@ -93,7 +93,7 @@ router.get("/me", empAuth, async (req, res) => {
 })
 
 // employee available bookings route
-//         /employees/availableBookings
+// GET        /employees/availableBookings
 
 router.get("/availableBookings", empAuth, async (req, res) => {
     const employee = req.employee
@@ -112,6 +112,9 @@ router.get("/availableBookings", empAuth, async (req, res) => {
         _
     })
 })
+
+// employee available_service id route
+// GET        /employees/available_service/:id
 
 router.get("/available_service/:id", empAuth, async (req, res) => {
     try {
@@ -132,36 +135,39 @@ router.get("/available_service/:id", empAuth, async (req, res) => {
     }
 })
 
+// employee available bookings route
+// POST        /employees/availableBookings
 
 router.post("/available_service/:id", empAuth, async (req, res) => {
 
     const jobDate = req.body.jobDate;
     const serviceId = req.params.id
+
     // Updating status of Service as appointed
     const service1 = await Service.findOneAndUpdate({
         bookingId: serviceId
     }, {
         status: "appointed"
     })
+
     // Updated status service
     const service = await Service.findOne({
         bookingId: serviceId
     })
+
     //Creating a new Job 
     const job = new Job({
         service: service._id,
         employee: req.employee._id,
         user: service.user,
         status: "appointed",
-        // jobDate : jobDate
+        jobDate : jobDate
     })
 
     try {
         await job.save();
-        console.log(job);
-        res.redirect('/employees/availableBookings')
-
-        // Rendering to the Current Booking Page
+        res.redirect('/employees/currentBookings')
+        //Redirecting to Current Bookings
     } catch (e) {
         res.status(404).send(e)
     }
@@ -169,9 +175,49 @@ router.post("/available_service/:id", empAuth, async (req, res) => {
 })
 
 // employee current bookings route
-//         /employees/currentBookings
+// GET        /employees/currentBookings
 
 router.get("/currentBookings", empAuth ,async (req,res)=>{
-    // Work from here from next day
+    const employee = req.employee
+    const jobs = await Job.find({employee:employee._id, status:"appointed" })
+                            .sort({jobDate : "asc"})
+                            .populate({path:'service', select : '-user'})
+                            .populate({path:'user', select : '-password -tokens '})
+                            .populate({path:'employee', select : '-password -tokens '})
+                            .exec()
+                            
+    
+    // res.send(jobs)
+    res.render("employee/currentBookings",{
+        jobs,
+        employee,
+        moment,
+        _
+    })
 })
+
+// employee current bookings with id route
+// GET        /employees/currentBookings/:id
+router.get("/currentBookings/:id", empAuth, async (req, res) => {
+    try {
+        const jobId = req.params.id;
+        const employee = req.employee;
+        const job = await Job.findOne({
+            jobId
+        });
+
+        res.send(job);
+        // res.render("employee/currentBookingId", {
+        //     service,
+        //     employee,
+        //     moment,
+        //     _
+        // })
+    } catch (e) {
+        res.status(500).send(e)
+    }
+})
+
+
+
 module.exports = router

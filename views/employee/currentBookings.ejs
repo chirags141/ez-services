@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+
+    <!-- Custom styles for this template -->
+    <link href="/css/dashboard.css" rel="stylesheet">
+
+    <title>EZ-Services</title>
+</head>
+
+<body>
+    <%- include('../partials/empDashboardNav'); %>
+
+    <!-- Side nav -->
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <%- include('../partials/empDashboardSideNav'); %>
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                <div class="row d-flex justify-content-center pb-2 pt-2">
+                    <h3 class="desc bg-dark text-white p-3 rounded-pill">Current Bookings</h3>
+                </div>
+
+                <div class="table-responsive border shadow">
+                    <table class="table table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Job Id</th>
+                                <th scope="col">Booking Id</th>
+                                <th scope="col">Customer Name</th>
+                                <th scope="col">Service Reqd.</th>
+                                <th scope="col">Mobile</th>
+                                <th scope="col">City</th>
+                                <th scope="col">Job Date</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <% var i = 1 %>
+                        <% jobs.forEach(function(job){ %>
+                        <tbody>
+                            <tr>
+                                <th scope="row"><%= i %></th>
+                                <td><%= job.jobId %></td>
+                                <td><%= job.service.bookingId %></td>
+                                <td><%= _.capitalize(job.service.name) %></td>
+                                <td><%= _.capitalize(job.service.typeOfService) %></td>
+                                <td><%=  job.service.mobile %></td>
+                                <td><%= _.capitalize(job.service.city) %></td>
+                                <td><%= moment(job.jobDate).format( 'MMMM Do YYYY') %></td>
+                                <td>
+                                    <a href="/employees/currentBookings/<%= job.jobId %>" class="btn  btn-outline-primary btn-float  btn-sm ">View</a>
+                                </td>
+                            </tr>
+                            <% i++ %>
+                        </tbody>
+                        <% }) %>
+                    </table>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <%- include('../partials/script'); %>
+
+</body>
+
+</html>
