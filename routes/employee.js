@@ -207,6 +207,9 @@ router.get("/currentBookings/:id", empAuth, async (req, res) => {
         });
 
         res.send(job);
+
+        
+
         // res.render("employee/currentBookingId", {
         //     service,
         //     employee,

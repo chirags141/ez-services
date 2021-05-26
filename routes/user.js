@@ -5,6 +5,7 @@ const _ = require('lodash')
 const userAuth = require("../middleware/userAuth")
 const User = require('../models/User')
 const Service = require("../models/Service")
+const Job = require('../models/Job')
 
 // user Login Route
 // POST     /users/login
@@ -147,8 +148,10 @@ router.get("/service/:id",userAuth,async(req,res)=>{
 // DELETE /users/service/:id
 
 router.delete("/service/:id", userAuth ,async(req,res)=>{
-    try {
+    try {  
+        const service = await Service.findOne({ bookingId: req.params.id})
         await Service.deleteOne({ bookingId: req.params.id , user: req.user.id })
+        await Job.deleteOne({service : service._id})
         res.redirect("/users/bookings")
 
     } catch (e) {
@@ -179,12 +182,52 @@ router.get("/bookings",userAuth,async(req,res)=>{
 router.get("/status",userAuth,async(req,res)=>{
     const user = req.user;
     const bookingId = req.query.bookingId
-    const service = await Service.findOne({bookingId}).exec()
+    // const service = await Service.findOne({bookingId});
 
+
+    res.render("user/status.ejs",{user})
+})
+
+router.post("/status",userAuth,async(req,res)=>{
+
+    const bookingId = req.body.bookingId;
+    // res.send(bookingId)
+    const service = await Service.findOne ({bookingId})
+    console.log(service);
+    try {
+        if(service === null || service === undefined){
+            res.redirect("/users/status")
+        }
+        else {
+            const job = await Job.findOne({service: service._id})
+                                 .populate({path:'service', select : '-user'})
+                                 .populate({path:'user', select : '-password -tokens '})
+                                 .populate({path:'employee', select : '-password -tokens '})
+                                 .exec()
+            if(job === null){
+                res.send("Job is not assigned");
+            }else{
+                res.send(job)
+            }
+        }
+    } catch (e) {
+        res.status(404).send(e);
+    }
+    // try {
+    //     if(service){
+    //         const job = await Job.findOne({service : service._id});
+
+    //     }else{
+            
+    //     }
+    // } catch (e) {
+    //     res.send(e)
+    // }
+    
+ 
     // More code to be updated
 
-
-    res.render("user/status.ejs",{user,service})
+    
 })
 
 
