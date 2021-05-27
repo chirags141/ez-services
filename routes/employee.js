@@ -56,8 +56,8 @@ router.post("/register", async (req, res) => {
 })
 
 // employee Logout Route
-//  POST    /employee/logout
-router.post('/logout', empAuth, async (req, res) => {
+//  GEt    /employee/logout
+router.get('/logout', empAuth, async (req, res) => {
     try {
         req.employee.tokens = req.employee.tokens.filter((token) => {
             return token.token !== req.token

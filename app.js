@@ -6,9 +6,10 @@ const dotenv = require('dotenv')
 const mongoose = require("mongoose")
 const methodOverride = require('method-override');
 const jwt = require("jsonwebtoken")
-var cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser')
 const cors = require('cors');
-
+const flash = require('connect-flash');
+const session = require("express-session");
 
 //Load config
 dotenv.config({path:"./config/config.env"})
@@ -45,6 +46,16 @@ app.set('view engine', 'ejs');
 
 //Static Folder
 app.use(express.static(path.join(__dirname,'public')))
+
+//Express sesisons and Flash
+app.use(session({
+  secret:"secret",
+  cookie:{maxAge:60000},
+  resave:false,
+  saveUninitialized:false 
+}))
+app.use(flash());
+
 
 const indexRouter = require('./routes/index')
 const userRouter = require('./routes/user')

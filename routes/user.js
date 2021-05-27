@@ -184,46 +184,60 @@ router.get("/status",userAuth,async(req,res)=>{
     const bookingId = req.query.bookingId
     // const service = await Service.findOne({bookingId});
 
-
-    res.render("user/status.ejs",{user})
+    res.render("user/status.ejs",{
+        user,
+        error:'',
+        success:""
+    })
 })
 
 router.post("/status",userAuth,async(req,res)=>{
 
+    const user = req.user                                       // USER
     const bookingId = req.body.bookingId;
     // res.send(bookingId)
-    const service = await Service.findOne ({bookingId})
-    console.log(service);
+    const service = await Service.findOne ({bookingId})         // SERVICE
+    // console.log(service);
     try {
         if(service === null || service === undefined){
-            res.redirect("/users/status")
+            res.render("user/status",{
+                user, 
+                error: "Entered Wrong Booking ID",
+                success:""
+            })
         }
         else {
-            const job = await Job.findOne({service: service._id})
-                                 .populate({path:'service', select : '-user'})
-                                 .populate({path:'user', select : '-password -tokens '})
+            const job = await Job.findOne({service: service._id})       
+                                //  .populate({path:'service', select : '-user'})
+                                //  .populate({path:'user', select : '-password -tokens '})
                                  .populate({path:'employee', select : '-password -tokens '})
-                                 .exec()
+                                 .exec()                        //JOB
+                                
+
+
             if(job === null){
-                res.send("Job is not assigned");
+                res.render("user/status",{
+                    user,
+                    error: "Job not assigned",
+                    success:""
+                })
             }else{
-                res.send(job)
+                const employee = job.employee;                      //EMPLOYEE
+
+                res.render("user/status",{
+                    user,
+                    error:"",
+                    success:"Job Details Found",
+                    service,
+                    employee,
+                    job
+                })
             }
         }
     } catch (e) {
         res.status(404).send(e);
     }
-    // try {
-    //     if(service){
-    //         const job = await Job.findOne({service : service._id});
 
-    //     }else{
-            
-    //     }
-    // } catch (e) {
-    //     res.send(e)
-    // }
-    
  
     // More code to be updated
 
