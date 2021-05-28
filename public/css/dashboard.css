@@ -118,3 +118,8 @@
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
+
+/* Status Receipt */
+.status-receipt{
+  background-color:rgba(228, 233, 237,.3);
+}

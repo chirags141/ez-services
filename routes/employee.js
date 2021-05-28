@@ -182,8 +182,8 @@ router.get("/currentBookings", empAuth ,async (req,res)=>{
     const jobs = await Job.find({employee:employee._id, status:"appointed" })
                             .sort({jobDate : "asc"})
                             .populate({path:'service', select : '-user'})
-                            .populate({path:'user', select : '-password -tokens '})
-                            .populate({path:'employee', select : '-password -tokens '})
+                            .populate({path:'user', select : '-password -tokens -createdAt -updatedAt'})
+                            .populate({path:'employee', select : '-password -tokens -createdAt -updatedAt'})
                             .exec()
                             
     

@@ -210,7 +210,7 @@ router.post("/status",userAuth,async(req,res)=>{
             const job = await Job.findOne({service: service._id})       
                                 //  .populate({path:'service', select : '-user'})
                                 //  .populate({path:'user', select : '-password -tokens '})
-                                 .populate({path:'employee', select : '-password -tokens '})
+                                 .populate({path:'employee', select : '-password -tokens -createdAt -updatedAt '})
                                  .exec()                        //JOB
                                 
 
@@ -230,7 +230,8 @@ router.post("/status",userAuth,async(req,res)=>{
                     success:"Job Details Found",
                     service,
                     employee,
-                    job
+                    job,
+                    moment,_
                 })
             }
         }
