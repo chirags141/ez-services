@@ -148,6 +148,8 @@ router.post("/available_service/:id", empAuth, async (req, res) => {
         bookingId: serviceId
     }, {
         status: "appointed"
+    },{
+        new:true
     })
 
     // Updated status service
@@ -202,20 +204,85 @@ router.get("/currentBookings/:id", empAuth, async (req, res) => {
     try {
         const jobId = req.params.id;
         const employee = req.employee;
-        const job = await Job.findOne({
-            jobId
-        });
+        const job = await Job.findOne({jobId})
+                            .populate({path:'service', select : '-user'})
+                            .populate({path:'user', select : '-password -tokens -createdAt -updatedAt'})
+                            .populate({path:'employee', select : '-password -tokens -createdAt -updatedAt'})
+                            .exec();
+        res.render("employee/currentBookingId",{
+            job,
+            service:job.service,
+            employee,
+            user:job.user,
+            moment,
+            _
 
-        res.send(job);
+        })
+    } catch (e) {
+        res.status(500).send(e)
+    }
+})
 
+router.post('/currentBookings/:id',empAuth,async(req,res)=>{
+    const jobId = req.params.id;
+
+    const job = await Job.findOneAndUpdate({jobId},{status: "completed"},{
+        new:true
+    });
+
+    const service = await Service.findOneAndUpdate({_id:job.service},{status:"completed"},{
+        new:true
+    });
+
+    try {
+        await job.save();
+        await service.save();
+        res.redirect("/employees/completedBookings");
+    } catch (e) {
         
+    }
+})
 
-        // res.render("employee/currentBookingId", {
-        //     service,
-        //     employee,
-        //     moment,
-        //     _
-        // })
+router.get('/completedBookings',empAuth,async(req,res)=>{
+
+    const jobs = await Job.find({employee:req.employee._id, status:"completed" })
+                    .sort({updatedAt : 'desc'})
+                    .populate({path:'service', select : '-user'})
+                    .populate({path:'user', select : '-password -tokens -createdAt -updatedAt'})
+                    .exec()
+
+    try {
+        res.render("employee/completedBookings",{
+            jobs,
+            service:jobs.service,
+            employee:req.employee,
+            user:jobs.user,
+            moment,
+            _
+
+        })
+    } catch (e) {
+        res.send(e)
+    }
+})
+
+router.get('/completedBookings/:id',empAuth,async(req,res)=>{
+    try {
+        const jobId = req.params.id;
+        const employee = req.employee;
+        const job = await Job.findOne({jobId})
+                            .populate({path:'service', select : '-user'})
+                            .populate({path:'user', select : '-password -tokens -createdAt -updatedAt'})
+                            .populate({path:'employee', select : '-password -tokens -createdAt -updatedAt'})
+                            .exec();
+        res.render("employee/completedBookingId",{
+            job,
+            service:job.service,
+            employee,
+            user:job.user,
+            moment,
+            _
+        })
     } catch (e) {
         res.status(500).send(e)
     }

@@ -22,7 +22,7 @@
 
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <div class="row d-flex justify-content-center pb-2 pt-2">
-                    <h3 class="desc bg-dark text-white p-3 rounded-pill">Current Bookings</h3>
+                    <h3 class="desc bg-dark text-white p-3 rounded-pill">Completed Bookings</h3>
                 </div>
 
                 <div class="table-responsive border shadow">
@@ -33,11 +33,10 @@
                                 <th scope="col">Job Id</th>
                                 <th scope="col">Booking Id</th>
                                 <th scope="col">Customer Name</th>
-                                <th scope="col">Service Reqd.</th>
                                 <th scope="col">Mobile</th>
                                 <th scope="col">City</th>
                                 <th scope="col">Job Date</th>
-                                <th scope="col">Status</th>
+                                <th scope="col">Completed At</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -49,13 +48,12 @@
                                 <td><%= job.jobId %></td>
                                 <td><%= job.service.bookingId %></td>
                                 <td><%= _.capitalize(job.service.name) %></td>
-                                <td><%= _.capitalize(job.service.typeOfService) %></td>
                                 <td><%=  job.service.mobile %></td>
                                 <td><%= _.capitalize(job.service.city) %></td>
                                 <td><%= moment(job.jobDate).format( 'MMMM Do YYYY') %></td>
-                                <td><%= _.capitalize(job.status) %></td>
+                                <td><%= moment(job.updatedAt).format("MMMM DD YYYY, hh:mm:ss a") %></td>
                                 <td>
-                                    <a href="/employees/currentBookings/<%= job.jobId %>" class="btn  btn-outline-primary btn-float  btn-sm ">View</a>
+                                    <a href="/employees/completedBookings/<%= job.jobId %>" class="btn  btn-outline-primary btn-float  btn-sm ">View</a>
                                 </td>
                             </tr>
                             <% i++ %>

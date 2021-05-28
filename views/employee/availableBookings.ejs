@@ -36,6 +36,7 @@
                       <th scope="col">Mobile</th>
                       <th scope="col">City</th>
                       <th scope="col">Date</th>
+                      <th scope="col">Status</th>
                       <th scope="col"></th>
                   </tr>
               </thead>
@@ -50,6 +51,7 @@
                       <td><%=  booking.mobile %></td>
                       <td><%= _.capitalize(booking.city) %></td>
                       <td><%= moment(booking.createdAt).format( 'MMMM Do YYYY, h:mm:ss a') %></td>
+                      <td><%= _.capitalize(booking.status) %></td>
                       <td>
                           <a href="/employees/available_service/<%= booking.bookingId %>" class="btn  btn-outline-primary btn-float  btn-sm ">View</a>
                           <!-- <form method="POST" action=""  id="delete-service"> -->

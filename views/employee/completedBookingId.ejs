@@ -21,10 +21,10 @@
                 <div class="container">
 
                     <div class="row d-flex justify-content-center pb-2 pt-2">
-                        <h3 class="desc bg-dark text-white p-3 rounded-pill">Available Booking</h3>
+                        <h3 class="desc bg-dark text-white p-3 rounded-pill">Completed Booking</h3>
                     </div>
 
-                    <div class="container booking-receipt border shadow pb-3">
+                    <div class="container booking-receipt border shadow pb-1">
                         <div class="row border-bottom">
                             <div class="col-sm-2">
                                 <p class="font-weight-bold">Booking-Id</p>
@@ -33,12 +33,43 @@
                                 <p><%= service.bookingId %><p>
                             </div>
                             <div class="col-sm-2">
-                                <p class="font-weight-bold">Booking Time</p>
+                                <p class="font-weight-bold">Job Id</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p><%= job.jobId %></p>
+                            </div>
+
+                        </div>
+
+                        <div class="row border-bottom">
+                            <div class="col-sm-2">
+                                <p class="font-weight-bold">Booking Date</p>
                             </div>
                             <div class="col-sm-4">
                                 <p><%= moment(service.createdAt).format( 'MMMM Do YYYY, h:mm:ss a') %></p>
                             </div>
+                            <div class="col-sm-2">
+                                <p class="font-weight-bold">Visit Date</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p><%= moment(job.jobDate).format( 'MMMM Do YYYY') %><p>
+                            </div>
+                        </div>
 
+                        <div class="row border-bottom">
+                            <div class="col-sm-2">
+                                <p class="font-weight-bold">Completion Date</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p><%= moment(job.updatedAt).format( 'MMMM Do YYYY, h:mm:ss a') %></p>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <p class="font-weight-bold">Completed By</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p><%= employee.name %></p>
+                            </div>
                         </div>
 
                         <div class="row border-bottom">
@@ -122,25 +153,16 @@
                             </div>
                         </div>
 
-                        <div class="row border-bottom">
+                        <div class="row ">
                             <div class="col-sm-2">
-                                <p class="font-weight-bold">Current Status</p>
+                                <p class="font-weight-bold">Status</p>
                             </div>
                             <div class=" col-sm-6">
                                 <p><%= _.capitalize(service.status) %><p>
                             </div>
                         </div>
 
-                        <!-- Form/Modal for submit the acception or rejection 
-                        inputing data to Job.js -->
-
-                        <div class="row">
-                            <div class=" offset-sm-5 col-sm-4 mt-3">
-                                <button type="button" class="btn btn-success" data-toggle="modal"
-                                    data-target="#acceptModal">Accept</button>
-                                <!-- <button type="button" class="btn btn-danger">Reject</button> -->
-                            </div>
-                        </div>
+                        
 
                     </div>
 
