@@ -2,58 +2,315 @@
 <html lang="en">
 
 <head>
-    <%- include('../partials/head'); %>
+  <%- include('../partials/head'); %>
 
-    <!-- Custom styles for this template -->
-    <link href="/css/dashboard.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="/css/dashboard.css" rel="stylesheet">
 
-    <title>EZ-Services</title>
+  <title>EZ-Services</title>
 </head>
 
 <body>
-    <%- include('../partials/userDashboardNav'); %>
+  <%- include('../partials/userDashboardNav'); %>
 
-    <!-- Side nav -->
+  <!-- Side nav -->
 
-    <div class="container-fluid">
-        <div class="row">
+  <div class="container-fluid">
+    <div class="row">
 
-            <%- include('../partials/userDashboardSideNav'); %>
+      <%- include('../partials/userDashboardSideNav'); %>
 
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-            <div class="row d-flex justify-content-center pb-2 pt-2">
-                <h3 class="desc bg-dark text-white p-3 rounded-pill align-items-center">Service Status</h3>
-            </div>
-
-            <div class="container">
-                <form action="#" method="GET">
-                    <div class="row">
-                        <div class="input-group mb-3 col-sm-6 offset-sm-3 offset-lg-4 col-lg-4">
-                            <input type="search" class="form-control" name="bookingId" placeholder="Enter Booking Id">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-primary" type="submit" id=""><i class="fa  fa-search"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <!-- Receipt -->
-                <div class="card">
-                    <div class="card-header text-center font-weight-bold">
-                       Booking Id :
-                    </div>
-                    <div class="card-body">
-                      <div class="col-lg-4">
-                          
-                      </div>
-                    </div>
-                </div>
-            </div>
-
-            </main>
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+        <div class="row d-flex justify-content-center pb-2 pt-2">
+          <h3 class="desc bg-dark text-white p-3 rounded-pill align-items-center">Service Status</h3>
         </div>
-    </div>
 
-    <%- include('../partials/script'); %>
+        <div class="container">
+          <form action="#" method="POST">
+            <div class="row">
+              <div class="input-group mb-3 col-sm-6 offset-sm-3 offset-lg-4 col-lg-4">
+                <input type="search" class="form-control" name="bookingId" placeholder="Enter Booking Id">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-primary" type="submit" id=""><i class="fa  fa-search"></i></button>
+                </div>
+              </div>
+            </div>
+          </form>
+
+          <!-- Error Alert -->
+
+          <% if (error != '' && success === "") { %>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%= error %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <% } %>
+
+          <!-- Success Alert -->
+
+          <% if (success != '' && error === "") { %>
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= success %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+
+          <!-- Receipt -->
+          <div class="card shadow">
+            <div class="card-header text-center font-weight-bold">
+              Booking Id : <span class="font-weight-normal"><%= service.bookingId %></span>
+            </div>
+            <div class="card-body">
+              <!-- RECEIPT BODY ROW 1 -->
+              <div class="row">
+                <!-- Job Details Receipt -->
+                <div class="offset-lg-3 offset-md-2 col-lg-6 col-md-8 mt-3">
+                  <div class="card status-receipt">
+                    <!-- Heading of Job Employee details card -->
+                    <h5>
+                      <div class="card-header text-center">
+                        Employees Details
+                      </div>
+                    </h5>
+                    <div class="card-body pt-0 pb-0">
+                      <!--  -->
+                      <div class="row border-bottom">
+                        <div class="offset-sm-2 col-sm-4 col-6">
+                          <p class="font-weight-bold">Job-ID</p>
+                        </div>
+                        <div class=" col-sm-4 col-6">
+                          <p><%= job.jobId %><p>
+                        </div>
+                      </div>
+
+                      <!--  -->
+                      <!-- <div class="row border-bottom">
+                        <div class="offset-sm-2 col-sm-4 col-6">
+                          <p class="font-weight-bold">Booking-ID</p>
+                        </div>
+                        <div class=" col-sm-4 col-6">
+                          <p><%= service.bookingId %><p>
+                        </div>
+                      </div> -->
+
+                      <!--  -->
+                      <div class="row border-bottom">
+                        <div class="offset-sm-2 col-sm-4 col-6">
+                          <p class="font-weight-bold">Employee Name</p>
+                        </div>
+                        <div class=" col-sm-4 col-6">
+                          <p><%= employee.name %><p>
+                        </div>
+                      </div>
+
+                      <!--  -->
+                      <div class="row border-bottom">
+                        <div class="offset-sm-2 col-sm-4 col-6">
+                          <p class="font-weight-bold">Contact</p>
+                        </div>
+                        <div class=" col-sm-4 col-6">
+                          <p><%= employee.phone %><p>
+                        </div>
+                      </div>
+
+                      <!--  -->
+                      <div class="row border-bottom">
+                        <div class="offset-sm-2 col-sm-4 col-6">
+                          <p class="font-weight-bold">Email</p>
+                        </div>
+                        <div class=" col-sm-4 col-6">
+                          <p><%= employee.email %><p>
+                        </div>
+                      </div>
+
+                      <!--  -->
+                      <div class="row ">
+                        <div class="offset-sm-2 col-sm-4 col-6">
+                          <p class="font-weight-bold">Visit Date</p>
+                        </div>
+                        <div class=" col-sm-4 col-6">
+                          <p><%=  moment(job.jobDate).format( 'MMMM Do YYYY') %><p>
+                        </div>
+                      </div>
+                      <!--  -->
+                    </div>
+                  </div>
+                </div>
+                <!-- Job Details Receipt End-->
+              </div>
+              <!-- END RECEIPT BODY ROW 1 -->
+              
+              <!-- RECEIPT BODY ROW 2 -->
+              <div class="row">
+                <!-- Service Details Receipt -->
+                <div class="offset-lg-3 offset-md-2 col-lg-6 col-md-8 mt-3">
+                  <div class="card status-receipt">
+                    <!-- Heading of Service details card -->
+                    <h5>
+                      <div class="card-header text-center">
+                        Booking Description
+                      </div>
+                    </h5>
+                    <div class="card-body pt-0 pb-0">
+
+                      <!--  -->
+                      <div class="row border-bottom">
+                        <div class="offset-sm-2 col-sm-4 col-6">
+                          <p class="font-weight-bold">Booking-ID</p>
+                        </div>
+                        <div class=" col-sm-4 col-6">
+                          <p><%= service.bookingId %><p>
+                        </div>
+                      </div>
+                      <!--  -->
+
+                      <div class="row border-bottom">
+                        <div class="offset-sm-2 col-sm-4 col-6">
+                          <p class="font-weight-bold">Booking Time</p>
+                        </div>
+                        <div class=" col-sm-4 col-6">
+                          <p><%=  moment(service.createdAt).format( 'MMMM Do YYYY, h:mm:ss a ') %><p>
+                        </div>
+                      </div>
+                      <!--  -->
+
+                      <div class="row border-bottom">
+                        <div class="offset-sm-2 col-sm-4 col-6">
+                          <p class="font-weight-bold">Status</p>
+                        </div>
+                        <div class=" col-sm-4 col-6">
+                          <p><%= _.capitalize(job.status) %><p>
+                        </div>
+                      </div>
+                      
+                      <!--  -->
+
+                      <div class="row border-bottom">
+                        <div class="offset-sm-2 col-sm-4 col-6">
+                          <p class="font-weight-bold">Service Category</p>
+                        </div>
+                        <div class=" col-sm-4 col-6">
+                          <p><%= _.capitalize(service.typeOfService)  %><p>
+                        </div>
+                      </div>
+                      <!--  -->
+
+                      <div class="row ">
+                        <div class="offset-sm-3 col-sm-6">
+                          <p class="font-weight-bold text-center">Description</p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="offset-sm-1 col-sm-10">
+                          <p class="text-center"><%= service.description %></p>
+                        </div>
+                      </div>
+                      <!--  -->
+                     
+                    </div>
+                  </div>
+                </div>
+                  <!-- Service Details Receipt Ends-->  
+              </div>
+              <!-- END RECEIPT BODY ROW 2 -->
+
+              <!-- RECEIPT BODY ROW 3 -->
+              <div class="row ">
+
+                <!-- User Details Receipt -->
+                <div class="offset-lg-3 offset-md-2 col-lg-6 col-md-8 mt-3">
+                  <div class="card status-receipt">
+                    <!-- Heading of Service details card -->
+                    <h5>
+                      <div class="card-header text-center">
+                        User Details
+                      </div>
+                    </h5>
+                    <div class="card-body pt-0 pb-0">
+
+                      <!--  -->
+                      <div class="row border-bottom">
+                        <div class="offset-sm-2 col-sm-4 col-6">
+                          <p class="font-weight-bold">Booked by</p>
+                        </div>
+                        <div class=" col-sm-4 col-6">
+                          <p><%= service.name %><p>
+                        </div>
+                      </div>
+                      <!--  -->
+
+                      <div class="row border-bottom">
+                        <div class="offset-sm-2 col-sm-4 col-6">
+                          <p class="font-weight-bold">Email</p>
+                        </div>
+                        <div class=" col-sm-4 col-6">
+                          <p><%= service.email %><p>
+                        </div>
+                      </div>
+                      <!--  -->
+
+                      <div class="row border-bottom">
+                        <div class="offset-sm-2 col-sm-4 col-6">
+                          <p class="font-weight-bold">Contact</p>
+                        </div>
+                        <div class=" col-sm-4 col-6">
+                          <p><%= service.mobile %><p>
+                        </div>
+                      </div>
+                      
+                      <!--  -->
+
+                      <div class="row border-bottom">
+                        <div class="offset-sm-2 col-sm-4 col-6">
+                          <p class="font-weight-bold">Address</p>
+                        </div>
+                        <div class=" col-sm-4 col-6">
+                          <p><%= _.capitalize(service.address)  %><p>
+                        </div>
+                      </div>
+                      <!--  -->
+                      <div class="row border-bottom">
+                        <div class="offset-sm-2 col-sm-4 col-6">
+                          <p class="font-weight-bold">City</p>
+                        </div>
+                        <div class=" col-sm-4 col-6">
+                          <p><%= _.capitalize(service.city)  %><p>
+                        </div>
+                      </div>
+                      <!--  -->
+                      <div class="row border-bottom">
+                        <div class="offset-sm-2 col-sm-4 col-6">
+                          <p class="font-weight-bold">State</p>
+                        </div>
+                        <div class=" col-sm-4 col-6">
+                          <p><%= _.capitalize(service.state)  %><p>
+                        </div>
+                      </div>
+                      <!--  -->
+
+
+                      <!--  -->
+                     
+                    </div>
+                  </div>
+                </div>
+                  <!-- User Details Receipt Ends-->
+                
+              </div>
+              <!-- END RECEIPT BODY ROW 3 -->
+            </div>
+            <% } %>
+          </div>
+
+      </main>
+    </div>
+  </div>
+
+  <%- include('../partials/script'); %>
 
 </body>
 
